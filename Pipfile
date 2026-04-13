@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+Django = ">=5.1"
+PyMySQL = "*"
+pyodbc = "*"
+mssql-django = "*"
+djangorestframework = "*"
+django-filter = "*"
+mysqlclient = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.14"
