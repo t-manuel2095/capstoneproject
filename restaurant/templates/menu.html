@@ -4,7 +4,7 @@
 <h1>Menu</h1>
 <!--Begin col-->
 <div class="column">
-    {% for item in menu.menu %}
+    {% for item in menu_items %}
     <p>
         <a href="{% url 'menu_item' pk=item.pk %}">
             {{ item.name }}
@@ -13,7 +13,26 @@
             ${{ item.price }}.00
         </span>
     </p>
+    {% empty %}
+    <p>No menu items available.</p>
     {% endfor %}
 </div>
 <!--End col-->
+
+<!-- Pagination Controls -->
+<div class="pagination" style="margin-top: 30px; text-align: center;">
+    {% if menu_items.has_previous %}
+        <a href="?page=1" style="margin: 0 5px;">First</a>
+        <a href="?page={{ menu_items.previous_page_number }}" style="margin: 0 5px;">Previous</a>
+    {% endif %}
+    
+    <span style="margin: 0 10px;">
+        Page <strong>{{ menu_items.number }}</strong> of <strong>{{ menu_items.paginator.num_pages }}</strong>
+    </span>
+    
+    {% if menu_items.has_next %}
+        <a href="?page={{ menu_items.next_page_number }}" style="margin: 0 5px;">Next</a>
+        <a href="?page={{ menu_items.paginator.num_pages }}" style="margin: 0 5px;">Last</a>
+    {% endif %}
+</div>
 {% endblock %}

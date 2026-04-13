@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # The settings for app updated for the Graded assessment
     'restaurant',
+    'rest_framework',
+    'djoser',
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'littlelemon.urls'
@@ -76,28 +81,29 @@ WSGI_APPLICATION = 'littlelemon.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-#MSSQL DATABASE
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'mssql',
-#         'NAME': 'reservations',
-#         'HOST': 'DESKTOP-AB3PKMH\\SQLEXPRESS01',
-#         'USER': 'user',
-#         'PASSWORD': 'password1',
-#     }
-# }
-
-#MYSQL DATABASE
 DATABASES = {
     'default': {
+        'ENGINE': 'mssql',
+        'NAME': 'reservations',
+        'HOST': 'DESKTOP-AB3PKMH\\SQLEXPRESS01',
+        'USER': 'mt',
+        'PASSWORD': 'nfltop100',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        }
+    },
+    'mysql': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'reservations',
-        'HOST' : '127.0.0.1',
-        'PORT' : '3306',
-        'USER' : 'admindjango',
-        'PASSWORD' : 'employee@123!',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'USER': 'admindjango',
+        'PASSWORD': 'employee@123!',
     }
 }
+
+# Database Router (uncomment if you want to route specific models to MSSQL)
+# DATABASE_ROUTERS = ['littlelemon.router.MSSQLRouter']
 
 # The settings for media files have been updated for the Graded assessment
 MEDIA_URL = '/media/'
@@ -147,3 +153,16 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+}
+
+DJOSER = {
+    "USER_ID_FIELD": "username"
+    }

@@ -5,75 +5,120 @@ Restaurant booking and menu management system built with Django and MySQL. This 
 
 ---
 
-## 1. Git Repository Setup
-- [ ] Initialize Git repository in project root
-- [ ] Create .gitignore file (exclude .env, __pycache__, *.pyc, db.sqlite3)
-- [ ] Make initial commit with current project state
-- [ ] Document Git workflow and commit conventions
+## Implementation Order (By Priority & Dependencies)
+
+1. **Additional Setup Tasks** - Install djoser, configure DRF (foundation)
+2. **User Registration & Authentication** - Djoser setup & User model linking
+3. **Menu API Implementation** - Simpler API to start
+4. **Table Booking API Implementation** - Complex API with validations
+5. **Unit Tests** - Test coverage for all features
+6. **Insomnia REST Client Testing** - Manual API verification
+7. **Git Repository Setup** - ✅ Already Complete
+8. **Django Static HTML Content** - ✅ Already Complete
+9. **MySQL & MSSQL Database Connection** - ✅ Already Complete
+
+**SKIPPED (Local Development Only):**
+- Environment Variables
+- CORS Configuration
 
 ---
 
-## 2. Django Static HTML Content Serving
+## 1. Additional Setup Tasks [START HERE]
 **Status:** ✅ COMPLETE
+
+- [x] **Install Dependencies:**
+  - [x] pipenv install django==4.1.1
+  - [x] pipenv install djangorestframework
+  - [x] pipenv install django-cors-headers
+  - [x] pipenv install python-decouple
+  - [x] pipenv install mysqlclient (MySQL driver)
+  - [x] pipenv install mssql-django (MSSQL driver)
+  - [x] pipenv install pyodbc (ODBC support for MSSQL)
+  - [x] pipenv install djoser (User authentication & management)
+  - [x] Verified with `pipenv graph`
+
+- [x] **Activate Virtual Environment:**
+  - [x] Run `pipenv shell` to activate
+  - [x] Use `pipenv run python manage.py <command>` for Django commands
+
+- [ ] **Environment Variables:** (OPTIONAL - Local development only)
+  - Skip for local development
+
+- [ ] **CORS Configuration:** (OPTIONAL - Local development only)
+  - Skip for local development
+
+- [x] **Django REST Framework Setup:**
+  - [x] Add 'rest_framework' to INSTALLED_APPS
+  - [x] Add 'rest_framework.authtoken' to INSTALLED_APPS
+  - [x] Add rest_framework configuration to settings.py:
+    - [x] DEFAULT_AUTHENTICATION_CLASSES = TokenAuthentication
+    - [x] DEFAULT_PERMISSION_CLASSES = IsAuthenticated
+    - [x] Djoser routes configured in urls.py
+
+- [x] **Admin Interface:**
+  - [x] Register Booking model in admin.py
+  - [x] Register Menu model in admin.py
+  - [x] Admin interface ready at /admin/
+
+---
+
+## 2. Menu API Implementation [THIRD PRIORITY]
+**Status:** ⚠️ PARTIAL (Do after authentication is set up)
+**Status:** ✅ COMPLETE
+- [x] Initialize Git repository in project root
+- [x] Create .gitignore file (exclude .env, __pycache__, *.pyc, db.sqlite3, .vs/)
+- [x] Make initial commit with current project state
+- [x] Push to GitHub remote
+- [x] Document Git workflow and commit conventions
+
+---
+
+## 6. Django Static HTML Content Serving
+**Status:** ✅ COMPLETE (Already Done)
 - [x] HTML templates created (index.html, about.html, menu.html, bookings.html, book.html, menu_item.html)
 - [x] Templates directory configured in settings.py
 - [x] Views rendering templates with context
 
 ---
 
-## 3. MySQL Database Connection
-**Status:** ✅ COMPLETE
-- [x] MySQL driver configured (django.db.backends.mysql)
-- [x] Database connection settings in settings.py (reservations database)
-- [x] Connection credentials set up (admindjango user)
+## 3. MySQL & MSSQL Database Connection
+**Status:** ✅ COMPLETE (Already configured, now supporting both)
+- [x] MySQL driver configured (django.db.backends.mysql) on localhost:3306
+- [x] MSSQL driver configured (mssql via mssql-django) on DESKTOP-AB3PKMH\SQLEXPRESS01
+- [x] Database connection settings in settings.py (reservations database in both)
+- [x] Connection credentials set up for both
+- [x] Configure database routing (if needed for different models)
 
 ---
 
-## 4. Menu API Implementation
-**Status:** ⚠️ PARTIAL - Needs Django REST Framework
+## 2. Menu API Implementation [THIRD PRIORITY]
+**Status:** ✅ MOSTLY COMPLETE (85%)
 
 ### Current State
 - [x] Menu model created with name, price, menu_item_description fields
 - [x] Menu views for HTML rendering (menu, display_menu_item)
-- [ ] Menu serializer (DRF)
-- [ ] Menu viewset with CRUD operations (DRF)
-- [ ] API endpoints for menu management
-- [ ] Pagination for menu items
-- [ ] Filtering/search capabilities
-- [ ] Insomnia collection for menu endpoints
+- [x] Menu serializer (DRF) - All fields included
+- [x] Menu viewset with CRUD operations (DRF)
+- [x] API endpoints for menu management (/api/menu/)
+- [ ] Pagination for menu items (optional)
+- [ ] Filtering/search capabilities (optional - use django-filter later)
 
----
+### API Endpoints Working:
+- [x] GET /api/menu/ - List all menu items
+- [x] POST /api/menu/ - Create menu item (requires authentication)
+- [x] GET /api/menu/{id}/ - Retrieve specific menu item
+- [x] PUT /api/menu/{id}/ - Update menu item (requires authentication)
+- [x] DELETE /api/menu/{id}/ - Delete menu item (requires authentication)-
 
-## 5. Table Booking API Implementation
-**Status:** ⚠️ PARTIAL - Needs Enhancements
+## 3. Table Booking API Implementation [FOURTH PRIORITY]
 
 ### Current State
 - [x] Booking model created (first_name, reservation_date, reservation_slot)
 - [x] Basic POST endpoint with double-booking prevention logic
 - [x] GET endpoint to retrieve bookings by date
-- [ ] **Model Enhancements:**
-  - [ ] Add ForeignKey to User model
-  - [ ] Add email field
-  - [ ] Add phone_number field
-  - [ ] Add party_size field
-  - [ ] Add last_name field
-  - [ ] Add special_requests field (optional)
-
-- [ ] **Create Table Model:**
-  - [ ] Add Table model with table_number, capacity, location fields
-  - [ ] Link Booking to Table via ForeignKey
-
-- [ ] **Create TimeSlot Model:**
-  - [ ] Add TimeSlot model with start_time, end_time fields
-  - [ ] Link Booking to TimeSlot
-  - [ ] Replace SmallIntegerField approach
-
 - [ ] **DRF Implementation:**
   - [ ] Create BookingSerializer
-  - [ ] Create TableSerializer
-  - [ ] Create TimeSlotSerializer
   - [ ] Create BookingViewSet with proper permissions
-  - [ ] Create TableViewSet
 
 - [ ] **API Endpoints:**
   - [ ] GET /api/bookings/ (list user's bookings)
@@ -96,42 +141,7 @@ Restaurant booking and menu management system built with Django and MySQL. This 
 
 ---
 
-## 6. User Registration & Authentication
-**Status:** ❌ NOT STARTED
-
-### Tasks
-- [ ] **Django User Model Integration:**
-  - [ ] Link User model to Booking (ForeignKey)
-  - [ ] Link User model to Menu (for admin/staff)
-
-- [ ] **User Registration:**
-  - [ ] Create UserSerializer
-  - [ ] Create registration viewset/endpoint (POST /api/register/)
-  - [ ] Implement password validation
-  - [ ] Send confirmation email (optional)
-
-- [ ] **Authentication Setup:**
-  - [ ] Install Django REST Framework
-  - [ ] Configure TokenAuthentication
-  - [ ] Create login endpoint (POST /api/login/)
-  - [ ] Create logout endpoint (POST /api/logout/)
-  - [ ] Create token refresh mechanism
-
-- [ ] **Permission Classes:**
-  - [ ] Create IsOwnerOrReadOnly permission
-  - [ ] Create IsAuthenticated checks
-  - [ ] Apply permissions to all endpoints
-
-- [ ] **API Endpoints:**
-  - [ ] POST /api/register/ (user registration)
-  - [ ] POST /api/login/ (obtain token)
-  - [ ] POST /api/logout/ (destroy token)
-  - [ ] GET /api/user/ (current user profile)
-  - [ ] PUT /api/user/ (update profile)
-
----
-
-## 7. Unit Tests
+## 4. Unit Tests [FIFTH PRIORITY]
 **Status:** ❌ NOT STARTED
 
 ### Test Coverage Required
@@ -173,35 +183,38 @@ Restaurant booking and menu management system built with Django and MySQL. This 
 
 ---
 
-## 8. Insomnia REST Client Testing
+## 5. Insomnia REST Client Testing [SIXTH PRIORITY]
 **Status:** ⚠️ PARTIAL - Endpoints exist but need DRF setup
 
 ### Tasks
 - [ ] Create Insomnia environment configuration
 - [ ] Create Insomnia collection with all endpoints:
-  - [ ] User Registration (POST)
-  - [ ] User Login (POST)
-  - [ ] List Menus (GET)
-  - [ ] Get Menu Item (GET)
-  - [ ] List Bookings (GET)
-  - [ ] Create Booking (POST)
-  - [ ] Update Booking (PUT)
-  - [ ] Cancel Booking (DELETE)
-  - [ ] List Tables (GET)
-  - [ ] List TimeSlots (GET)
+  - [ ] User Registration (POST /auth/users/)
+  - [ ] User Login (POST /auth/token/login/)
+  - [ ] User Logout (POST /auth/token/logout/)
+  - [ ] Get User Profile (GET /auth/user/)
+  - [ ] Update Profile (PUT /auth/user/)
+  - [ ] Change Password (POST /auth/user/set_password/)
+  - [ ] List Menus (GET /api/menus/)
+  - [ ] Get Menu Item (GET /api/menus/{id}/)
+  - [ ] List Bookings (GET /api/bookings/)
+  - [ ] Create Booking (POST /api/bookings/)
+  - [ ] Update Booking (PUT /api/bookings/{id}/)
+  - [ ] Cancel Booking (DELETE /api/bookings/{id}/)
+  - [ ] List Tables (GET /api/tables/)
+  - [ ] List TimeSlots (GET /api/timeslots/)
 
 - [ ] Test all endpoints in Insomnia
+- [ ] Verify token-based authentication works
 - [ ] Document API usage in README
 - [ ] Export collection for sharing
-
----
 
 ## 9. Additional Setup Tasks
 - [ ] **Install Dependencies:**
   - [ ] pip install djangorestframework
   - [ ] pip install django-cors-headers (for frontend integration)
   - [ ] pip install python-decouple (for environment variables)
-  - [ ] Update requirements.txt
+  - [ ] Update Pipfile with all dependencies
 
 - [ ] **Environment Variables:**
   - [ ] Move database credentials to .env
@@ -226,6 +239,27 @@ Restaurant booking and menu management system built with Django and MySQL. This 
 ---
 
 ## Implementation Priority
+
+### Phase 1: Foundation (Week 1 - HIGH PRIORITY)
+1. **Additional Setup Tasks** - Install DRF, configure environment variables, set up CORS
+2. **User Registration & Authentication** - Create auth system and link to User model
+
+### Phase 2: API Development (Week 2-3 - HIGH PRIORITY)
+1. **Menu API** - Build simple CRUD endpoints
+2. **Table Booking API** - Build complex booking endpoints with validations
+
+### Phase 3: Testing & Polish (Week 3-4 - MEDIUM PRIORITY)
+1. **Unit Tests** - Write comprehensive test coverage
+2. **Insomnia Testing** - Verify all endpoints work
+
+### Phase 4: Completed (ALREADY DONE)
+1. **Git Repository Setup** ✅
+2. **Django Static HTML** ✅
+3. **MySQL Database** ✅
+
+---
+
+## Implementation Priority (OLD - See "Implementation Order" section above)
 
 ### Phase 1: Foundation (High Priority)
 1. Initialize Git repository
@@ -289,7 +323,8 @@ Restaurant booking and menu management system built with Django and MySQL. This 
 - [ ] `Implementation_Roadmap.md` - This file
 - [ ] `.env` - Environment variables
 - [ ] `.env.example` - Environment template
-- [ ] `requirements.txt` - Python dependencies
+- [ ] `Pipfile` - Python dependencies (managed by pipenv)
+- [ ] `Pipfile.lock` - Locked versions for reproducibility
 - [ ] `API_DOCUMENTATION.md` - API endpoint documentation
 - [ ] `SETUP.md` - Setup and installation guide
 
