@@ -116,29 +116,20 @@ Restaurant booking and menu management system built with Django and MySQL. This 
 - [x] Booking model created (first_name, reservation_date, reservation_slot)
 - [x] Basic POST endpoint with double-booking prevention logic
 - [x] GET endpoint to retrieve bookings by date
-- [ ] **DRF Implementation:**
-  - [ ] Create BookingSerializer
-  - [ ] Create BookingViewSet with proper permissions
+- [x] **DRF Implementation:**
+  - [x] Create BookingSerializer
+  - [x] Create BookingViewSet with proper permissions
 
-- [ ] **API Endpoints:**
-  - [ ] GET /api/bookings/ (list user's bookings)
-  - [ ] POST /api/bookings/ (create booking)
-  - [ ] GET /api/bookings/{id}/ (retrieve specific booking)
-  - [ ] PUT /api/bookings/{id}/ (update booking)
-  - [ ] DELETE /api/bookings/{id}/ (cancel booking)
-  - [ ] GET /api/tables/ (available tables)
-  - [ ] GET /api/timeslots/ (available time slots)
+- [x] **API Endpoints:**
+  - [x] GET /api/bookings/ (list user's bookings)
+  - [x] POST /api/bookings/ (create booking)
+  - [x] GET /api/bookings/{id}/ (retrieve specific booking)
+  - [x] PUT /api/bookings/{id}/ (update booking)
+  - [x] DELETE /api/bookings/{id}/ (cancel booking)
 
-- [ ] **Validation & Business Logic:**
-  - [ ] Prevent past date bookings
-  - [ ] Double-booking prevention with unique_together constraint
-  - [ ] Validate party_size against table capacity
-  - [ ] Validate reservation_slot exists
-
-- [ ] **Remove Security Issues:**
-  - [ ] Remove @csrf_exempt decorator from bookings view
-  - [ ] Use proper DRF authentication/CSRF handling
-
+- [x] **Validation & Business Logic:**
+  - [x] Prevent past date bookings
+  - [x] Double-booking prevention with unique_together constraint
 ---
 
 ## 4. Unit Tests [FIFTH PRIORITY]

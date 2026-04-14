@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import BookingForm
-from .models import Menu
+from .models import Menu, Booking
 from django.core import serializers
 from .models import Booking, Menu
 from datetime import datetime
@@ -12,7 +12,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from .serializers import MenuSerializer
+from .serializers import BookingSerializer, MenuSerializer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
@@ -78,4 +78,9 @@ def bookings(request):
 class MenuViewSet(viewsets.ModelViewSet):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-    permission_classes = [IsAuthenticated]  # or IsAuthenticatedOrReadOnly for public browse
+    permission_classes = [IsAuthenticated]
+
+class BookingViewSet(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    permission_classes = [IsAuthenticated]

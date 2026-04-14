@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'menu', views.MenuViewSet)
+router.register(r'bookings', views.BookingViewSet)
 
 urlpatterns = [
     # HTML views
